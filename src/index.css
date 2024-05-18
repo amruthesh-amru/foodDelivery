@@ -5,7 +5,9 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
+* {
+  scroll-behavior: smooth;
+}
 @keyframes fadeInUp {
   0% {
     transform: translateY(30%);
