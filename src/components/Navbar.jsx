@@ -1,7 +1,7 @@
 import React from "react";
 import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
-const Navbar = () => {
+const Navbar = ({ setTogglePopup }) => {
   return (
     <>
       <div className="w-full flex justify-evenly md:justify-center xl:gap-[20rem] lg:gap-[7rem] gap-[2rem] items-center pt-6 ">
@@ -29,7 +29,12 @@ const Navbar = () => {
             />
             <div className="dot min-h-[10px] min-w-[10px] absolute top-[-8px] right-[-8px] bg-[tomato] rounded-full"></div>
           </div>
-          <button className="pt-2 pb-2 pl-4 pr-4 border-[1px] border-[grey] rounded-2xl hover:bg-[#ff4c24] hover:text-white transition-colors">
+          <button
+            className="pt-2 pb-2 pl-4 pr-4 border-[1px] border-[grey] rounded-2xl hover:bg-[#ff4c24] hover:text-white transition-colors"
+            onClick={() => {
+              setTogglePopup(true);
+            }}
+          >
             sign in
           </button>
         </div>
