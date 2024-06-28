@@ -4,6 +4,7 @@
 @tailwind utilities;
 * {
   font-family: "Outfit", sans-serif;
+  background-color: #fcfcfc;
 }
 .active {
   border-color: tomato;
