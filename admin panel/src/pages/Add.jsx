@@ -10,11 +10,13 @@ const Add = () => {
     price: "",
     category: "Salad",
   });
+
   const fileInputRef = useRef(null);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    console.log("Selected file:", file);
     if (file) {
-      console.log("Selected file:", file);
       setImage(file);
     }
   };
