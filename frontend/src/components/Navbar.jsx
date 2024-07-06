@@ -1,9 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "./context/StoreContext.jsx";
 const Navbar = ({ setTogglePopup }) => {
-  const { getTotalCartItem } = useContext(StoreContext);
+  const { getTotalCartItem, token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
   return (
     <>
       <div className="w-full flex justify-evenly md:justify-center xl:gap-[20rem] lg:gap-[7rem] gap-[2rem] items-center pt-6 pb-6 sticky top-0 z-20 bg-white ">
@@ -37,14 +43,38 @@ const Navbar = ({ setTogglePopup }) => {
               )}
             </div>
           </Link>
-          <button
-            className="pt-2 pb-2 pl-4 pr-4 border-[1px] border-[grey] rounded-2xl hover:bg-[#ff4c24] hover:text-white transition-colors"
-            onClick={() => {
-              setTogglePopup(true);
-            }}
-          >
-            sign in
-          </button>
+          {!token ? (
+            <button
+              className="pt-2 pb-2 pl-4 pr-4 border-[1px] border-[grey] rounded-2xl hover:bg-[#ff4c24] hover:text-white transition-colors"
+              onClick={() => {
+                setTogglePopup(true);
+              }}
+            >
+              sign in
+            </button>
+          ) : (
+            <div className="relative group">
+              <img
+                src={assets.profile_icon}
+                alt=""
+                className="md:w-[26px] w-[20px]"
+              />
+              <ul className="absolute hidden right-0 z-[1] group-hover:flex flex-col justify-center items-center p-2 pt-3 pb-3 w-[8rem] outline-[2px] outline-white bg-[#fff2ef] gap-[10px] rounded-[4px] border-[1px] border-[tomato] ">
+                <li className="flex items-center gap-[10px] cursor-pointer hover:text-[tomato]">
+                  <img src={assets.bag_icon} alt="" className="w-[20px]" />
+                  <p>Orders</p>
+                </li>
+                <hr />
+                <li
+                  className="flex items-center gap-[10px] cursor-pointer hover:text-[tomato]"
+                  onClick={logout}
+                >
+                  <img src={assets.logout_icon} alt="" className="w-[20px]" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>

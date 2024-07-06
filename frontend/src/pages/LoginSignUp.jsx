@@ -1,15 +1,48 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
+import { StoreContext } from "../components/context/StoreContext";
+import axios from "axios";
 
 const LoginSignUp = ({ setTogglePopup }) => {
+  const { url, setToken } = useContext(StoreContext);
   const [curState, setCurState] = useState("SignUp");
-  const handleCurrentState = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleCurrentState = (e) => {
+    e.preventDefault();
     if (curState === "SignUp") {
       setCurState("");
       setCurState("Login");
     } else {
       setCurState("");
       setCurState("SignUp");
+    }
+  };
+  const onLogin = async (e) => {
+    e.preventDefault();
+    let newUrl = url;
+    if (curState === "Login") {
+      newUrl += "/api/user/login";
+    } else {
+      newUrl += "/api/user/register";
+    }
+    const response = await axios.post(newUrl, data);
+    if (response.data.success) {
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      setTogglePopup(false);
     }
   };
   return (
@@ -25,13 +58,16 @@ const LoginSignUp = ({ setTogglePopup }) => {
               className="cursor-pointer"
             />
           </div>
-          <form action="#" id="" className="flex flex-col gap-8 mt-6 w-full">
+          <form onSubmit={onLogin} className="flex flex-col gap-8 mt-6 w-full">
             {curState === "SignUp" ? (
               <input
                 type="text"
                 className="outline-none rounded-md border-2 border-gray-400 p-2"
                 placeholder="your name"
                 required
+                name="name"
+                onChange={onChangeHandler}
+                value={data.name}
               />
             ) : (
               <></>
@@ -41,23 +77,28 @@ const LoginSignUp = ({ setTogglePopup }) => {
               className="outline-none rounded-md border-2 border-gray-400 p-2"
               placeholder="your email"
               required
+              name="email"
+              onChange={onChangeHandler}
+              value={data.email}
             />
             <input
               type="password"
-              name=""
-              id=""
               className="outline-none rounded-md border-2 border-gray-400 p-2"
               placeholder="your password"
               required
+              name="password"
+              onChange={onChangeHandler}
+              value={data.password}
             />
             <button className="bg-[tomato] p-2 rounded-md text-white text-[1.2rem] active:opacity-[0.8] transition-[1]">
-              Login
+              {curState}
             </button>
             {curState === "Login" ? (
               <p className="text-gray-500">
                 Create new account ?{" "}
                 <button
-                  onClick={() => handleCurrentState()}
+                  type="submit"
+                  onClick={handleCurrentState}
                   className="text-[tomato]"
                 >
                   Click here!
@@ -67,7 +108,8 @@ const LoginSignUp = ({ setTogglePopup }) => {
               <p className="text-gray-500">
                 Already have an account ?{" "}
                 <button
-                  onClick={() => handleCurrentState()}
+                  type="submit"
+                  onClick={handleCurrentState}
                   className="text-[tomato]"
                 >
                   Click here!
