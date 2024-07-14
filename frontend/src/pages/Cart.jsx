@@ -3,8 +3,14 @@ import { StoreContext } from "../components/context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { food_list, cartItems, addToCart, removeFromCart, getTotalCartItem } =
-    useContext(StoreContext);
+  const {
+    food_list,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    getTotalCartItem,
+    url,
+  } = useContext(StoreContext);
   const navigate = useNavigate();
   const [proceedToCheckOut, setProceedToCheckOut] = useState(false);
   const handleProceedToCheckput = () => {
@@ -49,7 +55,7 @@ const Cart = () => {
                     >
                       <td className="p-4">
                         <img
-                          src={item.image}
+                          src={url + "/images/" + item.image}
                           className="w-8 md:w-16 max-w-full max-h-full  transform transition-transform duration-300 hover:scale-150  "
                         />
                       </td>
