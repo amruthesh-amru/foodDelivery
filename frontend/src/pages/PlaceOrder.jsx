@@ -1,16 +1,66 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../components/context/StoreContext";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const PlaceOrder = () => {
-  const { food_list, cartItems, addToCart, removeFromCart, getTotalCartItem } =
-    useContext(StoreContext);
+  const {
+    food_list,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    getTotalCartItem,
+    token,
+    url,
+  } = useContext(StoreContext);
   const navigate = useNavigate();
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData((data) => ({ ...data, [name]: value }));
+  };
+
+  const placeOrder = async (e) => {
+    e.preventDefault();
+    let orderItems = [];
+    food_list.map((item) => {
+      if (cartItems[item._id] > 0) {
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id];
+        orderItems.push(itemInfo);
+      }
+    });
+    let orderData = {
+      address: data,
+      items: orderItems,
+      amount: getTotalCartItem() + 2,
+    };
+    let response = await axios.post(url + "/api/order/place", orderData, {
+      headers: { token },
+    });
+    if (response.data.success) {
+      const { session_url } = response.data;
+      window.location.replace(session_url);
+    } else {
+      alert("error");
+    }
+  };
 
   return (
-    <div>
+    <form onSubmit={placeOrder}>
       <div className="w-[80%] mx-auto justify-between my-0 flex p-[3rem]">
-        <form action="#" className="">
+        <div className="">
           <h1 className="text-[1.6rem] font-semibold  mb-[2rem]">
             Delivery Information
           </h1>
@@ -20,60 +70,96 @@ const PlaceOrder = () => {
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
                 type="text"
                 placeholder="First Name"
+                name="firstName"
+                onChange={onChangeHandler}
+                value={data.firstName}
+                required
               />
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
                 type="text"
                 placeholder="last Name"
+                name="lastName"
+                onChange={onChangeHandler}
+                value={data.lastName}
               />
             </div>
             <div className="">
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="email"
                 placeholder="Email address"
+                name="email"
+                onChange={onChangeHandler}
+                value={data.email}
               />
             </div>
             <div>
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="Street"
+                name="street"
+                onChange={onChangeHandler}
+                value={data.street}
               />
             </div>
             <div className="flex items-center justify-between gap-2">
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
                 type="text"
                 placeholder="City"
+                name="city"
+                onChange={onChangeHandler}
+                value={data.city}
               />
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
                 type="text"
                 placeholder="State"
+                name="state"
+                onChange={onChangeHandler}
+                value={data.state}
               />
             </div>
             <div className="flex items-center justify-between gap-2">
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm "
                 type="number"
                 placeholder="Zip code"
+                name="zipcode"
+                onChange={onChangeHandler}
+                value={data.zipcode}
               />
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
                 type="text"
                 placeholder="Country"
+                name="country"
+                onChange={onChangeHandler}
+                value={data.country}
               />
             </div>
             <div>
               <input
+                required
                 className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="number"
                 placeholder="Phone"
+                name="phone"
+                onChange={onChangeHandler}
+                value={data.phone}
               />
             </div>
           </div>
-        </form>
+        </div>
         <div className="w-[50%] ">
           <h1 className="text-[1.5rem] font-semibold mb-2">Cart Totals</h1>
           <div className="flex p-2 justify-between">
@@ -94,13 +180,14 @@ const PlaceOrder = () => {
             <button
               onClick={() => navigate("/order")}
               className="bg-[tomato] p-2 text-white rounded-md mt-2 outline-none flex items-center justify-center"
+              type="submit"
             >
               Proceed To payment
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
