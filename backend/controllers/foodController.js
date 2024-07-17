@@ -42,14 +42,11 @@ const listfood = async (req, res) => {
 //edit food custpm
 const editFood = async (req, res) => {
     try {
-        console.log(req.body);
         const foodEdit = req.body.id;
         const food = await foodModel.findById(foodEdit)
-        console.log(food + "foooooood");
         if (!food) {
             return res.status(404).json({ success: false, message: "Food not found" });
         }
-        console.log(req.file.filename);
         if (food.image !== req.file.filename) {
             fs.unlink(`uploads/${food.image}`, (err) => {
                 if (err) console.log(`Failed to delete old image: ${err.message}`);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StoreContext } from "./context/StoreContext.jsx";
 const Navbar = ({ setTogglePopup }) => {
   const { getTotalCartItem, token, setToken } = useContext(StoreContext);
@@ -18,7 +18,7 @@ const Navbar = ({ setTogglePopup }) => {
         </div>
         <div className="hidden  md:contents">
           <ul className="flex justify-center items-center md:gap-5  gap-2">
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
             <a href="#menu">Menu</a>
             <a href="#footer">Contact Us</a>
           </ul>
@@ -29,7 +29,7 @@ const Navbar = ({ setTogglePopup }) => {
             alt=""
             className="text-[0.9rem] md:w-[30px] w-[20px]"
           />
-          <Link to="/cart">
+          <NavLink to="/cart">
             <div className="relative ">
               <img
                 src={assets.basket_icon}
@@ -42,7 +42,7 @@ const Navbar = ({ setTogglePopup }) => {
                 <></>
               )}
             </div>
-          </Link>
+          </NavLink>
           {!token ? (
             <button
               className="pt-2 pb-2 pl-4 pr-4 border-[1px] border-[grey] rounded-2xl hover:bg-[#ff4c24] hover:text-white transition-colors"
@@ -60,10 +60,12 @@ const Navbar = ({ setTogglePopup }) => {
                 className="md:w-[26px] w-[20px]"
               />
               <ul className="absolute hidden right-0 z-[1] group-hover:flex flex-col justify-center items-center p-2 pt-3 pb-3 w-[8rem] outline-[2px] outline-white bg-[#fff2ef] gap-[10px] rounded-[4px] border-[1px] border-[tomato] ">
-                <li className="flex items-center gap-[10px] cursor-pointer hover:text-[tomato]">
-                  <img src={assets.bag_icon} alt="" className="w-[20px]" />
-                  <p>Orders</p>
-                </li>
+                <NavLink to="/myorders">
+                  <li className="flex items-center gap-[10px] cursor-pointer hover:text-[tomato]">
+                    <img src={assets.bag_icon} alt="" className="w-[20px]" />
+                    <p>Orders</p>
+                  </li>
+                </NavLink>
                 <hr />
                 <li
                   className="flex items-center gap-[10px] cursor-pointer hover:text-[tomato]"

@@ -76,14 +76,39 @@ const userOrder = async (req, res) => {
     try {
         const orders = await orderModel.find({ userId: req.body.userId })
         if (orders) {
-            res.json({ sucess: true, orders })
+            return res.json({ sucess: true, orders })
         } else {
-            res.json({ sucess: false, message: "No orders Found" })
+            return res.json({ sucess: false, message: "No orders Found" })
         }
     } catch (error) {
         console.log(error);
-        res.json({ sucess: false, message: "unable to retrive orders or order empty" })
+        return res.json({ sucess: false, message: "unable to retrive orders or order empty" })
     }
 }
+const listAllOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({})
+        if (orders) {
+            return res.json({ success: true, data: orders })
+        }
+        return res.json({ success: true, message: "No orders placesd" })
 
-export { placeOrder, verifyOrder, userOrder }
+    } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: "error to fetch all the orders" })
+    }
+}
+const updateFoodStatus = async (req, res) => {
+    try {
+        // let { orderId, status } = req.body;
+        // console.log(orderId, status);
+        await orderModel.findByIdAndUpdate(req.body.orderId, { status: req.body.status })
+        return res.json({ success: true, message: "Status Updated" })
+    } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: "Error Status Not Updated" })
+    }
+
+}
+
+export { placeOrder, verifyOrder, userOrder, listAllOrders, updateFoodStatus }

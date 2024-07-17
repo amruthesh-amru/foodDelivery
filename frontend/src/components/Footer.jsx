@@ -2,7 +2,7 @@ import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-[#2e2e2e] text-[#8b8b8b] mt-[5rem] " id="footer">
+    <div className="w-full bg-[#2e2e2e] text-[#8b8b8b] mt-[5rem]" id="footer ">
       <div className="w-[80%] mx-auto my-0 flex lg:flex-row flex-col gap-4 justify-between  items-start p-10">
         <div className="flex flex-col justify-center gap-4">
           <div>

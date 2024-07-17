@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { StoreContext } from "../components/context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ setTogglePopup }) => {
   const {
     food_list,
     cartItems,
@@ -10,12 +10,16 @@ const Cart = () => {
     removeFromCart,
     getTotalCartItem,
     url,
+    token,
   } = useContext(StoreContext);
   const navigate = useNavigate();
-  const [proceedToCheckOut, setProceedToCheckOut] = useState(false);
   const handleProceedToCheckput = () => {
     if (getTotalCartItem() <= 0) {
       alert("cart empty");
+    }
+    if (!token) {
+      navigate("/");
+      setTogglePopup(true);
     } else {
       navigate("/order");
     }

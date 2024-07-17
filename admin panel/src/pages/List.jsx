@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { assets } from "../assets/assets";
 
-const List = () => {
-  const url = "http://localhost:4000";
+const List = ({ url }) => {
   const [image, setImage] = useState("");
   const [foodList, setFoodList] = useState([]);
   const [editMenu, setEditMenu] = useState(false);
