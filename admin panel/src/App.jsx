@@ -8,7 +8,8 @@ import Add from "./pages/Add";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const App = () => {
-  const url = "http://localhost:4000";
+  // const url = "http://localhost:4000";
+  const url = "https://fooddelivery-backend-6gpa.onrender.com";
   return (
     <div>
       <div className=" max-h-screen w-full">
