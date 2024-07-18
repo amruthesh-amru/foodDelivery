@@ -8,8 +8,8 @@ const LoginSignUp = ({ setTogglePopup }) => {
   const [curState, setCurState] = useState("SignUp");
   const [data, setData] = useState({
     name: "",
-    email: "",
-    password: "",
+    email: "root@gmail.com",
+    password: "root1234",
   });
 
   const onChangeHandler = (e) => {
