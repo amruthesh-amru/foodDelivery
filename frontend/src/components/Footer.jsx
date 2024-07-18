@@ -43,7 +43,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="mx-auto my-0 flex items-center justify-center text-[0.8rem] pb-1">
+      <div className="mx-auto my-0 flex items-center justify-center text-[0.8rem] pb-1 p-2 text-center">
         Copyright 2024 © Amruthesh Gowda - All Rights Reserved.
       </div>
     </div>

@@ -26,18 +26,15 @@ const List = ({ url }) => {
 
   useEffect(() => {
     getFoodItems();
-    // console.log(foodList);
   }, []);
   const openMenu = (food) => {
     setEditMenu(!editMenu);
     setFoodToEdit(food);
-    // console.log(food);
   };
   const handleEdit = async (e) => {
     // setIsSubmit(true);
     e.preventDefault();
     const formData = new FormData();
-    console.log(foodDetails.id + "idddddddd");
     formData.append("id", foodToEdit._id);
     formData.append("name", foodDetails.name);
     formData.append("description", foodDetails.description);
@@ -45,9 +42,6 @@ const List = ({ url }) => {
     formData.append("category", foodDetails.category);
     formData.append("image", image);
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
     const response = await axios.post(`${url}/api/food/edit`, formData);
     if (response.data.success) {
       setEditMenu(!editMenu);
@@ -66,7 +60,6 @@ const List = ({ url }) => {
     } else {
       toast.error(response.data.message);
     }
-    console.log(response.data);
   };
 
   const fileInputRef = useRef(null);
@@ -74,7 +67,6 @@ const List = ({ url }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("Selected file:", file);
       setImage(null);
       setImage(file);
     }
@@ -139,7 +131,7 @@ const List = ({ url }) => {
                           <img
                             src={`${url}/images/` + food.image}
                             alt=""
-                            className="w-[60px] h-[50px]"
+                            className="w-[60px] h-[50px] object-cover"
                           />
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

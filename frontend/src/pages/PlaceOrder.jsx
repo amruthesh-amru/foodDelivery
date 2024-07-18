@@ -59,15 +59,15 @@ const PlaceOrder = () => {
 
   return (
     <form onSubmit={placeOrder}>
-      <div className="w-[80%] mx-auto justify-between my-0 flex p-[3rem]">
-        <div className="">
+      <div className="md:w-[80%] w-full mx-auto flex-col md:flex-row gap-[2rem] justify-between my-0 flex  p-[1rem] sm:p-[3rem]">
+        <div className="w-full">
           <h1 className="text-[1.6rem] font-semibold  mb-[2rem]">
             Delivery Information
           </h1>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between gap-2">
+          <div className="flex flex-col gap-4 w-[100%]">
+            <div className="flex items-center  flex-col md:flex-row justify-between gap-2">
               <input
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="First Name"
                 name="firstName"
@@ -77,7 +77,7 @@ const PlaceOrder = () => {
               />
               <input
                 required
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="last Name"
                 name="lastName"
@@ -107,10 +107,10 @@ const PlaceOrder = () => {
                 value={data.street}
               />
             </div>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex  flex-col md:flex-row items-center justify-between gap-2">
               <input
                 required
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="City"
                 name="city"
@@ -119,7 +119,7 @@ const PlaceOrder = () => {
               />
               <input
                 required
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="State"
                 name="state"
@@ -127,10 +127,10 @@ const PlaceOrder = () => {
                 value={data.state}
               />
             </div>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-col md:flex-row  items-center justify-between gap-2">
               <input
                 required
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm "
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full "
                 type="number"
                 placeholder="Zip code"
                 name="zipcode"
@@ -139,7 +139,7 @@ const PlaceOrder = () => {
               />
               <input
                 required
-                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm"
+                className="outline-none border-[1px] p-[5px] border-gray-300 rounded-sm w-full"
                 type="text"
                 placeholder="Country"
                 name="country"
@@ -160,7 +160,7 @@ const PlaceOrder = () => {
             </div>
           </div>
         </div>
-        <div className="w-[50%] ">
+        <div className="sm:w-[60%] w-full">
           <h1 className="text-[1.5rem] font-semibold mb-2">Cart Totals</h1>
           <div className="flex p-2 justify-between">
             <h2>Subtotal</h2>

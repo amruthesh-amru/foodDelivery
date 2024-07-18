@@ -145,7 +145,7 @@ const Cart = ({ setTogglePopup }) => {
           )}
         </div>
 
-        <div className="w-[50%] mt-[5rem]">
+        <div className="sm:w-[50%] w-[100%] mt-[5rem]">
           <h1 className="text-[1.5rem] font-semibold mb-2">Cart Totals</h1>
           <div className="flex p-2 justify-between">
             <h2>Subtotal</h2>

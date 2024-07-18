@@ -28,6 +28,24 @@ const Add = ({ url }) => {
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
+
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [cols, setCols] = useState(50);
+
+  const handleResize = () => {
+    setScreenSize(window.innerWidth);
+    if (window.innerWidth < 527) {
+      setCols(30);
+    } else {
+      setCols(50);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const OnSubmitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -57,7 +75,7 @@ const Add = ({ url }) => {
   // }, [foodDetails]);
   return (
     <>
-      <div className="pt-[2rem] pl-[6rem]  flex flex-col gap-4 items-start w-[40%]">
+      <div className="sm:pt-[2rem] sm:pl-[6rem] p-4 flex flex-col gap-4 items-start w-[40%]">
         <form name="upload" className="flex flex-col gap-[1rem]">
           <div className="flex flex-col gap-2">
             <h2>Upload Image</h2>
@@ -95,8 +113,8 @@ const Add = ({ url }) => {
               placeholder="Write content here"
               id=""
               rows={6}
-              cols={50}
-              className="border-[1px] border-gray-400 rounded-sm p-2 bg-white"
+              cols={cols}
+              className="border-[1px] border-gray-400  rounded-sm p-2 bg-white"
               value={foodDetails.description}
               onChange={(e) => onChangeHandler(e)}
             ></textarea>
@@ -107,7 +125,7 @@ const Add = ({ url }) => {
               <select
                 name="category"
                 id=""
-                className="border-[1px] border-gray-400 rounded-sm p-1 bg-white w-[8rem]"
+                className="border-[1px] border-gray-400 rounded-sm p-1 bg-white sm:w-[8rem]"
                 value={foodDetails.category}
                 onChange={(e) => onChangeHandler(e)}
               >

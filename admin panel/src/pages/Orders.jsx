@@ -6,7 +6,6 @@ const Orders = ({ url }) => {
   const [data, setData] = useState([]);
   const fetchAllOrders = async () => {
     const response = await axios.get(url + "/api/order/list");
-    console.log(response.data.data);
     if (response.data.success) {
       setData(response.data.data);
     } else {
@@ -18,7 +17,6 @@ const Orders = ({ url }) => {
       status: event.target.value,
       orderId: orderId,
     });
-    console.log(response);
     if (response.data.success) {
       fetchAllOrders();
       toast.success(response.data.message);

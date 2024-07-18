@@ -11,9 +11,6 @@ const LoginSignUp = ({ setTogglePopup }) => {
     email: "",
     password: "",
   });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const onChangeHandler = (e) => {
     const name = e.target.name;

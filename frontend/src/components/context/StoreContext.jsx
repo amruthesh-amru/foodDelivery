@@ -56,7 +56,6 @@ const StoreContextProvider = (props) => {
       { headers: { token } }
     );
     setCartItems(response.data.cartData);
-    console.log(response.data.cartData);
   };
   useEffect(() => {
     async function loadData() {

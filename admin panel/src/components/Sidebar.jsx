@@ -8,7 +8,11 @@ const Sidebar = () => {
         <div className="flex flex-col mt-[5rem] gap-6">
           <NavLink to="/add">
             <div className="  p-3 gap-3 flex justify-start items-center border-[1px] border-[gray] border-r-0 cursor-pointer   ">
-              <img src={assets.add_icon} alt="" className="w-[25px] h-[25px]" />
+              <img
+                src={assets.add_icon}
+                alt=""
+                className="min-w-[25px] min-h-[25px]"
+              />
               <h1 className="hidden md:contents">Add Items</h1>
             </div>
           </NavLink>
@@ -17,7 +21,7 @@ const Sidebar = () => {
               <img
                 src={assets.order_icon}
                 alt=""
-                className="w-[25px] h-[25px]"
+                className="min-w-[25px] min-h-[25px]"
               />
               <h1 className="hidden md:contents">List Items</h1>
             </div>
@@ -28,7 +32,7 @@ const Sidebar = () => {
               <img
                 src={assets.order_icon}
                 alt=""
-                className="w-[25px] h-[25px]"
+                className="min-w-[25px] min-h-[25px]"
               />
               <h1 className="hidden md:contents">Orders</h1>
             </div>
